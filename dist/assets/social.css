@@ -1,0 +1,9 @@
+
+.s621-social-links{display:flex;align-items:center;justify-content:center;gap:10px;margin:20px auto 8px}
+.s621-social-links a{display:inline-grid;place-items:center;width:40px;height:40px;border:1px solid currentColor;border-radius:50%;color:#e9a33a;text-decoration:none;transition:transform .15s ease,background .15s ease}
+.s621-social-links a:hover,.s621-social-links a:focus-visible{transform:translateY(-2px);background:rgba(233,163,58,.12)}
+.s621-social-links svg{width:22px;height:22px;fill:currentColor;stroke:none}
+.s621-social-links circle{fill:none;stroke:currentColor;stroke-width:2}
+.s621-social-links text{fill:currentColor;font:bold 18px Arial,sans-serif}
+.s621-follow-block{width:min(760px,calc(100% - 40px));margin:20px auto 70px;padding:28px;text-align:center;border:1px solid rgba(23,61,71,.18);border-radius:20px;background:rgba(255,255,255,.55)}
+.s621-follow-block h2{margin:0 0 12px}
