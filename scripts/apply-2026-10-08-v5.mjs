@@ -220,10 +220,10 @@ write('assets/site-tracking.js', `(() => {
   }, true);
 
   const priceByProduct = {
-    qhzig: 9.90,
+    qhzig: 12.90,
     eoeaie: 19.90,
-    zdwcno: 24.90,
-    sqlsa: 29.90,
+    zdwcno: 27.90,
+    sqlsa: 34.90,
     odouo: 19.90,
   };
   document.addEventListener('click', (event) => {
