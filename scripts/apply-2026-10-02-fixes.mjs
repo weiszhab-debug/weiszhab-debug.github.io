@@ -200,9 +200,9 @@ for (const rel of [...germanPages, ...articles]) write(rel, useDu(read(rel)));
   const rel = 'arbeitsbuch/index.html';
   let html = read(rel);
   html = html.replace('Das vollständige Arbeitsbuch in Druckversion, Handyversion und EPUB.', 'Druckversion (A4-PDF, 79 Seiten), Handyversion (PDF) und EPUB');
-  html = html.replace(/(<span class="kicker">Audio-Begleitung<\/span><div class="price">)19,90 €/, '$19,90 €');
-  html = html.replace(/(<span class="kicker">Arbeitsbuch \+ Audio<\/span><div class="price">)29,90 €/, '$124,90 €');
-  html = html.replace(/(<span class="kicker">Komplettpaket<\/span><div class="price">)34,90 €/, '$129,90 €');
+  html = html.replace(/(<span class="kicker">Audio-Begleitung<\/span><div class="price">)19,90 €/, '$1' + '12,90 €');
+  html = html.replace(/(<span class="kicker">Arbeitsbuch \+ Audio<\/span><div class="price">)29,90 €/, '$1' + '27,90 €');
+  html = html.replace(/(<span class="kicker">Komplettpaket<\/span><div class="price">)34,90 €/, '$1' + '34,90 €');
   write(rel, html);
 }
 
@@ -240,7 +240,7 @@ for (const rel of [...germanPages, ...articles]) write(rel, useDu(read(rel)));
 
 // Replace every German article's closing promotion with the requested sample and author blocks.
 const articleAuthor = `<section class="author-box"><h2>Steven H. White</h2><p>Fast zwanzig Jahre habe ich getrunken. Seit über zehn Jahren bin ich trocken. Ich schreibe für die Menschen, die das alles miterleben.</p><p><strong>Ich bin kein Muttersprachler. Aber Alkohol spricht jede Sprache.</strong></p><p><a href="/ueber-mich/">Meine Geschichte →</a></p></section>`;
-const articleCta = `<section class="next"><div class="wrap next-box"><div><div class="eyebrow">Erst reinhören – kostenlos</div><h2>Hör dir den ersten Teil an.</h2><p>Ohne E-Mail-Adresse, ohne Anmeldung.</p><audio controls preload="none" style="display:block;width:min(100%,620px);margin:20px 0"><source src="/assets/audio/de-sample.mp3" type="audio/mpeg"></audio><p class="meta">Gesprochen mit KI-Stimme. Text und Geschichte: Steven H. White.</p><p><a class="all-link" href="/kostenlos/">Lieber lesen? Kostenloses Einstiegsheft (PDF)</a></p></div><div><a class="button" href="/hoerprogramm/?utm_source=blog&amp;utm_medium=artikel">Zum Hörprogramm – 9,90 €</a><p style="margin-top:18px"><a href="/soforthilfe/">Bei unmittelbarer Gefahr: Soforthilfe</a></p></div></div></section>`;
+const articleCta = `<section class="next"><div class="wrap next-box"><div><div class="eyebrow">Erst reinhören – kostenlos</div><h2>Hör dir den ersten Teil an.</h2><p>Ohne E-Mail-Adresse, ohne Anmeldung.</p><audio controls preload="none" style="display:block;width:min(100%,620px);margin:20px 0"><source src="/assets/audio/de-sample.mp3" type="audio/mpeg"></audio><p class="meta">Gesprochen mit KI-Stimme. Text und Geschichte: Steven H. White.</p><p><a class="all-link" href="/kostenlos/">Lieber lesen? Kostenloses Einstiegsheft (PDF)</a></p></div><div><a class="button" href="/hoerprogramm/?utm_source=blog&amp;utm_medium=artikel">Zum Hörprogramm – 12,90 €</a><p style="margin-top:18px"><a href="/soforthilfe/">Bei unmittelbarer Gefahr: Soforthilfe</a></p></div></div></section>`;
 for (const rel of articles) {
   let html = read(rel);
   if (!html.includes('Fast zwanzig Jahre habe ich getrunken.')) html = html.replace('</article>', `${articleAuthor}</article>`);
