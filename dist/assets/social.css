@@ -7,3 +7,4 @@
 .s621-social-links text{fill:currentColor;font:bold 18px Arial,sans-serif}
 .s621-follow-block{width:min(760px,calc(100% - 40px));margin:20px auto 70px;padding:28px;text-align:center;border:1px solid rgba(23,61,71,.18);border-radius:20px;background:rgba(255,255,255,.55)}
 .s621-follow-block h2{margin:0 0 12px}
+.author-box{margin-top:clamp(2rem,5vw,4rem);padding:clamp(1.4rem,3vw,2rem);border:1px solid rgba(23,61,71,.18);border-radius:20px;background:#fffdf9}.author-box h2{margin-top:0}

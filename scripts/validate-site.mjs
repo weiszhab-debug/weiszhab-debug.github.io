@@ -10,6 +10,7 @@ const failures = [];
 for (const file of files) {
   const html = fs.readFileSync(path.join(root, file), 'utf8');
   if (!/<link rel="canonical" href="https:\/\/www\.621sober\.com\//.test(html)) failures.push(`${file}: missing www canonical`);
+  if (!html.includes('<script src="/assets/site-tracking.js" defer></script>')) failures.push(`${file}: missing shared tracking scaffold`);
   for (const match of html.matchAll(/(?:href|src)="(\/(?!\/|#)[^"?#]*)/g)) {
     const urlPath = match[1];
     const target = path.join(root, urlPath.slice(1));
@@ -38,6 +39,46 @@ if (!germanArticle.includes('<title>Du verlierst nicht nur ihn – sondern langs
 const audioLanding = fs.readFileSync(path.join(root, 'hoerprogramm/index.html'), 'utf8');
 if (!audioLanding.includes('<a href="/soforthilfe/">Alle Nummern auf der Soforthilfe-Seite.</a>')) {
   failures.push('hoerprogramm/index.html: crisis sentence is not linked');
+}
+
+const germanHome = fs.readFileSync(path.join(root, 'de/index.html'), 'utf8');
+const germanHero = germanHome.match(/<section class="section-pad brand-hero">[\s\S]*?<\/section>/)?.[0] ?? '';
+for (const required of ['621 SOBER · Orientierung für Angehörige', 'Ich war derjenige, der getrunken hat.', 'href="#drei-wege"', 'class="brand-paths"', 'class="brand-articles"', 'Steven H. White']) {
+  if (!germanHome.includes(required)) failures.push(`de/index.html: missing brand-home element ${required}`);
+}
+if (/gumroad|\d+[,.]\d+\s*€/.test(germanHero)) failures.push('de/index.html: hero contains a purchase link or price');
+
+const workbook = fs.readFileSync(path.join(root, 'arbeitsbuch/index.html'), 'utf8');
+for (const oldLabel of ['Audio-Begleitung', 'Audio kaufen', 'Bundle kaufen', 'Zur Audio-Begleitung']) {
+  if (workbook.includes(oldLabel)) failures.push(`arbeitsbuch/index.html: old label ${oldLabel}`);
+}
+for (const required of ['Hörprogramm + Arbeitsbuch kaufen', 'Hörprogramm kaufen', 'href="/hoerprogramm/">Zum Hörprogramm']) {
+  if (!workbook.includes(required)) failures.push(`arbeitsbuch/index.html: missing label ${required}`);
+}
+
+const completedArticles = [
+  'weihnachten-mit-einem-alkoholkranken-familienmitglied',
+  'co-abhaengigkeit-selbsttest',
+  'funktionierender-alkoholiker',
+  'partner-auf-trinken-ansprechen',
+];
+for (const slug of completedArticles) {
+  const article = fs.readFileSync(path.join(root, `artikel/${slug}/index.html`), 'utf8');
+  for (const required of ['assets/audio/de-sample.mp3', 'Gesprochen mit KI-Stimme.', 'class="author-box"', 's621-social-links', 'utm_source=blog&amp;utm_medium=artikel']) {
+    if (!article.includes(required)) failures.push(`${slug}: missing article ending ${required}`);
+  }
+}
+const christmas = fs.readFileSync(path.join(root, 'artikel/weihnachten-mit-einem-alkoholkranken-familienmitglied/index.html'), 'utf8');
+if (!christmas.includes('utm_campaign=weihnachten')) failures.push('Christmas article: missing campaign parameter');
+
+const tracking = fs.readFileSync(path.join(root, 'assets/site-tracking.js'), 'utf8');
+if (!tracking.includes('zdwcno: 24.90') || !tracking.includes('sqlsa: 29.90')) failures.push('tracking scaffold: stale bundle prices');
+if (!tracking.includes("const PIXEL_ID = 'META_PIXEL_ID'")) failures.push('tracking scaffold: placeholder Pixel ID was unexpectedly changed');
+
+const germanFiles = files.filter(file => !file.startsWith('en\\') && !file.startsWith('hu\\') && file !== 'index.html' && !['impressum\\index.html', 'datenschutz\\index.html'].includes(file));
+for (const file of germanFiles) {
+  const html = fs.readFileSync(path.join(root, file), 'utf8');
+  if (/href="\/audio\/">(?:Audio|Hörprogramm)<\/a>/.test(html)) failures.push(`${file}: legacy German audio navigation link`);
 }
 const scriptMatch = audioLanding.match(/<script>\(\(\)=>\{const q=new URLSearchParams[\s\S]*?<\/script>/);
 if (!scriptMatch) failures.push('hoerprogramm/index.html: missing UTM forwarding script');
