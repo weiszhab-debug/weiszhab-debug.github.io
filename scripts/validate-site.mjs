@@ -91,6 +91,8 @@ if (!christmas.includes('utm_campaign=weihnachten')) failures.push('Christmas ar
 const tracking = fs.readFileSync(path.join(root, 'assets/site-tracking.js'), 'utf8');
 if (!tracking.includes('zdwcno: 24.90') || !tracking.includes('sqlsa: 29.90')) failures.push('tracking scaffold: stale bundle prices');
 if (!tracking.includes("const PIXEL_ID = 'META_PIXEL_ID'")) failures.push('tracking scaffold: placeholder Pixel ID was unexpectedly changed');
+if (!tracking.includes("const CLOUDFLARE_ANALYTICS_TOKEN = '4b98c2b08aa1425d8351dfb8acf47087'")) failures.push('tracking scaffold: missing Cloudflare Web Analytics token');
+if (!tracking.includes("https://static.cloudflareinsights.com/beacon.min.js")) failures.push('tracking scaffold: missing Cloudflare Web Analytics beacon');
 
 const germanFiles = files.filter(file => !file.startsWith('en\\') && !file.startsWith('hu\\') && file !== 'index.html' && !['impressum\\index.html', 'datenschutz\\index.html'].includes(file));
 for (const file of germanFiles) {

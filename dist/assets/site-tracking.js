@@ -1,5 +1,13 @@
 (() => {
   'use strict';
+
+  const CLOUDFLARE_ANALYTICS_TOKEN = '4b98c2b08aa1425d8351dfb8acf47087';
+  const analytics = document.createElement('script');
+  analytics.type = 'module';
+  analytics.src = 'https://static.cloudflareinsights.com/beacon.min.js';
+  analytics.dataset.cfBeacon = JSON.stringify({ token: CLOUDFLARE_ANALYTICS_TOKEN });
+  document.head.appendChild(analytics);
+
   const PIXEL_ID = 'META_PIXEL_ID';
   if (!/^\d{5,}$/.test(PIXEL_ID)) return;
 
