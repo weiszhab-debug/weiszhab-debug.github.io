@@ -21,6 +21,23 @@ for (const file of files) {
     const after = html.slice(audio.index + audio[0].length, audio.index + audio[0].length + 250);
     if (!/(KI-Stimme|MI-hanggal)/.test(after)) failures.push(`${file}: audio missing AI disclosure`);
   }
+
+  const language = html.match(/<html[^>]*\blang="([^"]+)"/i)?.[1]?.toLowerCase() ?? '';
+  const socialBlocks = [...html.matchAll(/<nav class="s621-social-links"[\s\S]*?<\/nav>/g)].map(match => match[0]);
+  if (html.includes('</footer>') && socialBlocks.length === 0) failures.push(`${file}: footer missing social links`);
+  for (const social of socialBlocks) {
+    if (language.startsWith('de')) {
+      if (!social.includes('https://www.pinterest.com/iweiszhab/') || !social.includes('id=61594558974405') || !social.includes('https://621soberde.substack.com/')) failures.push(`${file}: incomplete German social links`);
+      if (social.includes('id=61594136947748') || social.includes('https://substack.com/@621sober')) failures.push(`${file}: wrong-language social link in German block`);
+    } else if (language.startsWith('hu')) {
+      if (!social.includes('id=61594136947748')) failures.push(`${file}: missing Hungarian Facebook link`);
+      if (social.includes('substack.com') || social.includes('id=61594558974405')) failures.push(`${file}: unpublished social link in Hungarian block`);
+    } else if (language.startsWith('en')) {
+      if (!social.includes('https://substack.com/@621sober')) failures.push(`${file}: missing English Substack link`);
+      if (social.includes('facebook.com') || social.includes('621soberde.substack.com')) failures.push(`${file}: unpublished social link in English block`);
+    }
+  }
+  if (/SOCIAL LINKS:/.test(html)) failures.push(`${file}: stale social-link placeholder`);
 }
 
 const requiredFiles = ['assets/audio/de-sample.mp3', 'assets/audio/hu-sample.mp3', 'sitemap.xml', 'robots.txt'];
