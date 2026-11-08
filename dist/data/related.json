@@ -1,0 +1,44 @@
+{
+  "de": {
+    "default": [
+      "co-abhaengigkeit-selbsttest",
+      "die-nacht-in-der-wir-beide-weinten"
+    ],
+    "fallback": "funktionierender-alkoholiker",
+    "overrides": {
+      "funktionierender-alkoholiker": [
+        "ist-mein-partner-alkoholiker",
+        "die-nacht-in-der-wir-beide-weinten"
+      ],
+      "co-abhaengigkeit-selbsttest": [
+        "alkoholproblem-in-der-familie-helfen-ohne-zu-retten",
+        "sie-verlieren-nicht-nur-ihn-sondern-langsam-auch-sich-selbst"
+      ],
+      "die-nacht-in-der-wir-beide-weinten": [
+        "der-tag-an-dem-niemand-mich-mehr-rettete",
+        "das-trinken-hoert-auf-vertrauen-braucht-laenger"
+      ]
+    }
+  },
+  "hu": {
+    "default": [
+      "tarsfuggoseg-onteszt",
+      "az-ejszaka-amikor-mindketten-sirtunk"
+    ],
+    "fallback": "mukodo-alkoholista",
+    "overrides": {
+      "mukodo-alkoholista": [
+        "alkoholista-a-parom",
+        "az-ejszaka-amikor-mindketten-sirtunk"
+      ],
+      "tarsfuggoseg-onteszt": [
+        "segitek-vagy-mar-mentem",
+        "nem-csak-ot-veszited-el-lassan-onmagadat-is"
+      ],
+      "az-ejszaka-amikor-mindketten-sirtunk": [
+        "a-nap-amikor-senki-nem-mentett-meg",
+        "miert-igeri-meg-ujra"
+      ]
+    }
+  }
+}
